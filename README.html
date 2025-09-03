@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Foster + Navi // therickyfoster.github.io — next-gen, gamified GitHub hub: repos, activity, quests, and on-chain funding." />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <title>Foster + Navi • Mission Hub</title>
+  <link rel="preload" href="styles.css" as="style" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // motion safety + SW (progressive)
+    if ('serviceWorker' in navigator) {
+      addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
+    document.documentElement.classList.toggle('reduce-motion',
+      matchMedia('(prefers-reduced-motion: reduce)').matches);
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Site">
+    <header class="brand">
+      <img src="assets/logo.svg" alt="" width="32" height="32" />
+      <div class="title">
+        <strong>Foster + Navi</strong>
+        <span class="muted">Mission Hub</span>
+      </div>
+      <button id="themeToggle" class="icon-btn" type="button" aria-pressed="false" title="Toggle theme">🌓</button>
+    </header>
+
+    <section class="panel profile">
+      <h2 class="visually-hidden">Profile</h2>
+      <div id="userBlock" class="userblock" aria-live="polite">
+        <!-- Filled by app.js -->
+        <div class="skeleton user">
+          <div class="avatar"></div>
+          <div class="meta">
+            <div class="line"></div><div class="line small"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- XP / Level -->
+      <div class="xp">
+        <div class="xp-head">
+          <strong>Level <span id="level">1</span></strong>
+          <span id="streak" class="badge">Streak 0</span>
+        </div>
+        <div class="xp-bar" aria-label="XP progress">
+          <div id="xpFill" class="xp-fill" style="width: 0%"></div>
+        </div>
+        <div class="xp-meta">
+          <span><span id="xp">0</span> / <span id="xpNext">1000</span> XP</span>
+          <span id="badgesCount" class="badge">0 badges</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAV -->
+    <nav class="nav">
+      <a href="#overview" class="navlink" data-icon="🏠">Overview</a>
+      <a href="#repos" class="navlink" data-icon="📦">Repositories</a>
+      <a href="#activity" class="navlink" data-icon="📈">Activity</a>
+      <a href="#quests" class="navlink" data-icon="🎯">Quests</a>
+      <a href="#funding" class="navlink" data-icon="💎">Funding</a>
+      <a href="#settings" class="navlink" data-icon="⚙️">Settings</a>
+    </nav>
+
+    <!-- QUICK ACTIONS -->
+    <section class="panel quick">
+      <h2 class="panel-title">Quick Actions</h2>
+      <div class="actions">
+        <button id="refreshData" class="btn">Refresh Data</button>
+        <button id="exportState" class="btn">Export Snapshot</button>
+      </div>
+      <p id="netStatus" class="muted" aria-live="polite">Status: …</p>
+    </section>
+
+    <!-- BADGES -->
+    <section class="panel badges">
+      <h2 class="panel-title">Badges</h2>
+      <div id="badges" class="badge-grid" aria-live="polite"></div>
+    </section>
+
+    <footer class="sidebar-footer muted">
+      <small>© <span id="year"></span> Foster + Navi · Built for continuity</small>
+    </footer>
+  </aside>
+
+  <!-- MAIN -->
+  <main id="main" class="main" role="main">
+    <!-- OVERVIEW -->
+    <section id="overview" class="section panel">
+      <h1>Overview</h1>
+      <p class="lead">Next-gen, gamified hub for <strong id="displayName">Ricky Foster</strong> (<code id="username">TheRickyFoster</code>). Works offline. Supercharges with a GitHub token (stored locally). Designed for IPFS/Arweave mirroring. View Transitions + WAAPI animations respect <code>prefers-reduced-motion</code>.</p>
+
+      <div class="cards">
+        <article class="stat">
+          <div class="stat-key">Public Repos</div>
+          <div id="statRepos" class="stat-val">—</div>
+        </article>
+        <article class="stat">
+          <div class="stat-key">Stars (received)</div>
+          <div id="statStars" class="stat-val">—</
